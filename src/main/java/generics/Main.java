@@ -1,8 +1,17 @@
 package generics;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 
+
+
 public class Main {
+
+    private static Connection connection;
+    private static Statement statement;
     public static void main(String[] args) {
         // начало первого задания
         String[] hw = {"hello", "world"};
@@ -52,6 +61,30 @@ public class Main {
 
         //bigOrangeBox.relocateFruits(appleBox); проверяю что апельсины к яблокам не насыпать
 
+        try {
+            connect();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            statement.execute("CREATE TABLE IF NOT EXISTS fruits (" + "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    "name TEXT)");
+            statement.execute("INSERT INTO fruits (name) VALUES ('apple')");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+        try {
+            disconnect();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public static void changeOrder(Object[] array){
@@ -62,5 +95,15 @@ public class Main {
         Object temp = array[0];
         array[0] = array[1];
         array[1] = temp;
+    }
+
+    private static void connect() throws ClassNotFoundException, SQLException {
+        Class.forName("org.sqlite.JDBC");
+        connection = DriverManager.getConnection("jdbc:sqlite:fruits.db");
+        statement = connection.createStatement();
+    }
+
+    private static void disconnect() throws SQLException {
+        connection.close();
     }
 }
