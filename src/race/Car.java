@@ -64,4 +64,8 @@ public class Car implements Runnable {
     public static Car getCar() {
         return cars.get(0);
     }
+
+    public static int getCarsCount() {
+        return CARS_COUNT;
+    }
 }

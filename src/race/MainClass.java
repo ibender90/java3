@@ -16,7 +16,9 @@ public class MainClass {
             new Thread(cars[i]).start();
         }
         race.startSameTime();
+
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка началась!!!");
+
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка закончилась!!!");
     }
 }

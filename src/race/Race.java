@@ -2,7 +2,6 @@ package race;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.CountDownLatch;
 
 public class Race {
     private ArrayList<Stage> stages;
